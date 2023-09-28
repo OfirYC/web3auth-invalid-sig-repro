@@ -12,12 +12,6 @@ import {
   generateFactorKey,
 } from "@web3auth/mpc-core-kit";
 import Web3 from "web3";
-import {
-  HttpProvider,
-  AbstractProvider,
-  IpcProvider,
-  WebsocketProvider,
-} from "web3-core/types";
 
 import { Signer, providers } from "ethers";
 import "./App.css";
@@ -404,7 +398,8 @@ function App() {
             uiConsole(
               `Success Rate: ${
                 retries /
-                (retries / signatures.filter(([sig, isValid]) => isValid).length)
+                (retries /
+                  signatures.filter(([sig, isValid]) => isValid).length)
               }%`
             );
           }}
