@@ -377,22 +377,14 @@ function App() {
 
             const signatures: any[][] = [];
 
-            for (let i = 0; i < 50; i++) {
+            const retries = 50;
+
+            for (let i = 0; i < retries; i++) {
               const [isValid, signature, recoveredAddress] =
                 await checkWeb3AuthValidity(signer, signerAddress);
 
-              const validityString =
-                `Retry ${i + 1}/50 is ${isValid ? "Valid" : "Invalid"}  
-                ` +
-                `
-                Success: ${isValid}
-                Signature: ${signature}
-                Recovered Address: ${recoveredAddress}
-                Expected Address: ${signerAddress}
-                `;
-
               uiConsole(
-                `Retry ${i + 1}/50 is ${isValid ? "Valid" : "Invalid"}`,
+                `Retry ${i + 1}/${retries} is ${isValid ? "Valid" : "Invalid"}`,
                 `Success: ${isValid}`,
                 `Signature: ${signature}`,
                 `Recovered Address: ${recoveredAddress}`,
@@ -411,7 +403,8 @@ function App() {
 
             uiConsole(
               `Success Rate: ${
-                100 / (100 / signatures.filter(([isValid]) => isValid).length)
+                retries /
+                (retries / signatures.filter(([sig, isValid]) => isValid).length)
               }%`
             );
           }}
